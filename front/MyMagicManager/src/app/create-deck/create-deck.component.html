@@ -1,0 +1,158 @@
+<div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 title-section">
+        <h2 *ngIf="_data.currentView != 'edit-deck'">
+          Deck Creation
+        </h2>
+        <h2 *ngIf="_data.currentView == 'edit-deck'">
+            Edit Deck: {{deckName}}
+        </h2>
+      </div>
+    </div>
+    <app-filters></app-filters>
+  </div>
+
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-md-8 col-sm-8 col-sm-12">
+        <h5>Results: {{_data.filteredCards.length}}</h5>
+
+        <div class="row">
+          <div class="col-sm-6 col-md-4 col-lg-3 card-thumbnail text-center"
+            *ngFor="let card of _data.filteredCards; let i = 'index'" (mousemove)="onMouseMove($event)">
+            <a data-toggle="modal" data-target="#modalQuickView"> <i
+                *ngIf="_user.isLogged && _user.isFavourite(card['_id'])" class="fas fa-star favouriteCard"
+                aria-hidden="true"></i>
+              <img (mouseover)="showHover[i]=true" (mouseout)="showHover[i]=false" (click)="addToDeck(i)"
+                (contextmenu)="removeFromDeck($event, i)" class="thumbnail-pic" [src]="card['image_uris']['png']"
+                alt=""></a>
+
+            <span class="hover-pic" *ngIf="showHover[i]"><img [src]="card['image_uris']['png']" alt=""
+                [ngStyle]="{'top':mouseY+'px', 'left':mouseX+'px'}"></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-12 ">
+        <div class="sticky-top" *ngIf="_data.deckCards.length>0">
+          <div class="row">
+            <div class="col-12">
+              <app-deck-cards-table></app-deck-cards-table>
+            </div>
+          </div>
+          <div class="row " *ngIf="_data.deckCardsCount>0">
+            <div class="col-12 d-flex justify-content-around pt-2">
+              <button *ngIf="_data.currentView != 'edit-deck'" class="btn btn-success deck-buttons" data-toggle="modal"
+                data-target="#modalSaveDeck">Save</button>
+              <button *ngIf="_data.currentView == 'edit-deck'" class="btn btn-success deck-buttons" data-toggle="modal"
+                data-target="#modalSaveDeck">Update</button>
+              <button class="btn btn-warning deck-buttons" data-toggle="modal"
+                data-target="#modalStatsDeck" (click)="loadStats()">Stats</button>
+              <button class="btn btn-danger deck-buttons" data-toggle="modal"
+                data-target="#modalResetDeck">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="modalSaveDeck" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title" id="exampleModalLabel">Save Deck</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="deckName">Deck name</label>
+            <input type="text" class="form-control" id="deckName" aria-describedby="deckName" placeholder="Enter name"
+              title="Choose a name for your deck" [(ngModel)]="deckName" [ngModelOptions]="{standalone: true}">
+
+          </div>
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="publicDeck" [(ngModel)]="publicDeck"
+              [ngModelOptions]="{standalone: true}"
+              title="If you mark it as public, people will be able to check its contents">
+            <label class="form-check-label" for="publicDeck">Make this deck public</label>
+          </div>
+
+        </div>
+        <div class="modal-footer border-top-0 d-flex justify-content-center">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <!-- TO DO: ngStyle & ngClass to close the modal only if the save goes correct. show error if not -->
+          <button *ngIf="_data.currentView != 'edit-deck'" type="submit" class="btn btn-success" (click)="saveDeck()"
+            data-dismiss="modal">Save</button>
+          <button *ngIf="_data.currentView == 'edit-deck'" type="submit" class="btn btn-success" (click)="updateDeck()"
+            data-dismiss="modal">Update</button>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade" id="modalResetDeck">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Reset Deck</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p>Are you sure you want to reset the content of the deck?</p>
+        <p>All information will be lost and this action can't be undone</p>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer d-flex justify-content-around">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="resetDeck()">Reset</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade" id="modalStatsDeck">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Deck Stats</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+       <app-statistics></app-statistics>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer d-flex justify-content-around">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Return</button>
+
+      </div>
+
+    </div>
+  </div>
+</div>

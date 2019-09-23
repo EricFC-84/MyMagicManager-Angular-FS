@@ -1,0 +1,132 @@
+tr {
+  vertical-align: middle;
+}
+
+.card-name {
+    width: 95%;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8em;
+    padding-right: 1em;
+    margin: 8px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+  
+  
+  
+  .row-separator{
+      height: 2px;
+  }
+  
+  .card-cost {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    /* min-width: 133px; */
+  }
+  
+  .card-colors-b {
+    background-color: #312f35;
+  }
+  
+  .card-colors-u {
+    background-color: #348ab5;
+  }
+  
+  .card-colors-g {
+    background-color: #096a43;
+  }
+  
+  .card-colors-r {
+    background-color: #d83d0e;
+  }
+  
+  .card-colors-w {
+    background-color: #ecebe7;
+  }
+  
+  .card-colors-c {
+    background-color: #c0ccd5;
+  }
+  
+  .card-colors-multi {
+    background-color: #fbe283;
+  }
+  
+  .card-colors-bg {
+    background: linear-gradient(to bottom right, #312f35 45%,  #068854 55%);
+  }
+  
+  .card-colors-br {
+    background: linear-gradient(to bottom right, #d83d0e 45%, #312f35 55%);
+  }
+  
+  .card-colors-bu {
+    background: linear-gradient(to bottom right, #348ab5 45%, #312f35 55%);
+  }
+  
+  .card-colors-bw {
+    background: linear-gradient(to bottom right, #ecebe7 45%, #312f35 55%);
+  }
+  
+  .card-colors-gr {
+    background: linear-gradient(to bottom right, #d83d0e 45%,  #096a43 55%);
+  }
+  
+  .card-colors-gu {
+    background: linear-gradient(to bottom right, #096a43 45%, #348ab5 55%);
+  }
+  
+  .card-colors-gw {
+    background: linear-gradient(to bottom right, #096a43 45%, #ecebe7 55%);
+  }
+  
+  .card-colors-ru {
+    background: linear-gradient(to bottom right, #348ab5 45%, #d83d0e 55%);
+  }
+  
+  .card-colors-rw {
+    background: linear-gradient(to bottom right, #d83d0e 45%,  #ecebe7 55%);
+  }
+  
+  .card-colors-uw {
+    background: linear-gradient(to bottom right, #ecebe7 45%, #348ab5 55%);
+  }
+  
+  tbody{
+      cursor: pointer;
+  }
+  
+  .deck-buttons{
+      font-size: 0.8em;
+  }
+  
+
+  .card-count {
+    font-size: 0.8em;
+    min-width: 17px;
+    border-top-left-radius: 40%;
+    border-bottom-left-radius: 40%;
+    background-color: black;
+    color: white;
+  }
+  .ms- {
+    background-color: transparent;
+    border-top: 1px solid black;
+    height: 1px;
+    margin: 0 2px;
+    font-size: 0.5em;
+  }    
+
+
+  .hover-pic {
+    min-height: 33vh;
+    max-height: 50vh;
+    position: absolute;
+/*     top: 0;
+    left: 0; */
+    z-index: 1100;
+  
+  }

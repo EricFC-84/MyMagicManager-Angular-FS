@@ -1,0 +1,72 @@
+.favourites-button, .exclusive-btn {
+  background-color: #f8f9fa;
+  color: #999999;
+}
+
+.favChecked, 
+.exclusive {
+  color: black;
+}
+
+.inFavourites {
+  color: yellow;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f005";
+  text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+}
+
+.exclusive-btn img{
+  opacity: 0.5;
+}
+
+.exclusive img{
+  opacity: 1;
+}
+
+#search-name {
+  padding: 6px 12px;
+  width: 76%;
+  box-shadow: none;
+  outline: none;
+  border: none;
+  /* border-bottom: 2px solid black; */
+  border-radius: 4px;
+  margin: 4px;
+
+}
+
+
+
+/* .on-top {
+   z-index: 2000 !important;
+}
+ */
+
+/* #search-name:focus~label,
+#search-name.ng-dirty~label {
+  top: 40px;
+  left: 75px;
+  font-size: 12px;
+  font-weight: bold;
+
+} */
+
+/* #search-name:focus,
+#search-name.ng-dirty {
+  border-bottom: 2px solid blue;
+
+} */
+
+/* .search-input label,
+#search-name.no-name~label {
+  position: absolute;
+  top: 55px;
+  left: 75px;
+  font-size: 16px;
+  font-weight: normal;
+  color: #999;
+  pointer-events: none;
+  transition: 0.5s;
+
+} */

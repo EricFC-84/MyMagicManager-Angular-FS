@@ -1,0 +1,24 @@
+<h5>Cards: {{_data.deckCardsCount}}</h5>
+<table class="w-100">
+  <tbody *ngFor="let card of _data.deckCards; let i = 'index'">
+    <tr [class]="'py-1 card-colors-'+ _data.deckCards[i]['color_identity']"
+      (contextmenu)="removeFromDeckTable($event, i)" (click)="addToDeckTable(i)">
+      <td class="card-count" width="5%" style="font-size:0.8em; min-width: 17px;">
+        {{card["count"]}}x
+      </td>
+      <td style="max-width:100px">
+        <div class="card-name pl-1">
+          {{card["card"]["name"]}}
+        </div>
+      </td>
+      <td class="card-cost text-right" style=" font-size:12px;">
+        <span *ngFor="let color of _data.replaceManaText(card['card']); let i = 'index'">
+          <i [class]="'ms ms-shadow ms-cost ms-' + color"></i></span>
+      </td>
+    </tr>
+    <tr class="row-separator">
+
+    </tr>
+  </tbody>
+
+</table>

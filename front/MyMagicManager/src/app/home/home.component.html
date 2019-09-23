@@ -1,0 +1,139 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 justify-content-center">
+      Landing carousel!!
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h5>Public Decks</h5>
+
+      <div class="col-12">
+        <div class="row">
+          <div class="col-lg-4" *ngFor="let deck of _data.publicDecks; let i = 'index'">
+            <div class="row deck-data">
+              <div class="col-5">
+                <img class="deck-pic" src="https://deckmaster.info/images/icons/deckmaster@hr.png" alt=""
+                  (click)="loadDeck(i)">
+              </div>
+              <div class="col-7">
+                <strong (click)="loadDeck(i)" class="deck-name">{{deck['name']}}</strong>
+                <p *ngIf="deck['creationDate'] == deck['updateDate']">Created on: {{deck["creationDate"]}}</p>
+                <p *ngIf="deck['creationDate'] != deck['updateDate']">Last update: {{deck["updateDate"]}}</p>
+                <p >Created by: <a [routerLink]="['/profile/'+ deck['creator']['_id']]">{{deck["creator"]["name"]}}</a></p>
+                <button (click)="cloneDeck(i)" class="btn btn-primary btn-circle m-1" title="Clone"><i
+                    class="far fa-clone"></i></button>
+                <button data-toggle="modal" data-target="#modalExport" (click)="exportDeck(i)"
+                  class="btn btn-success btn-circle m-1" title="Export"><i
+                    class="fas fa-cloud-download-alt"></i></button>
+                <button data-toggle="modal" data-target="#modalStatsDeck" (click)="loadStats(i)"
+                  class="btn btn-secondary btn-circle m-1"><i class="far fa-chart-bar"></i></button>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <h5>Popular cards</h5>
+    <div class="col-12">
+
+      <app-search-results></app-search-results>
+
+      <!--  <div class="row">
+        <div class="col-lg-4 col-md-6" *ngFor="let card of _user.loggedUser['favouriteCards']">
+          <div class="row deck-data">
+            <div class="col-4">
+              <img class="deck-pic" [src]="card['image_uris']['png']" alt="" (click)="loadCard(i)">
+            </div>
+            <div class="col-8">
+              <strong (click)="loadDeck(i)" class="deck-name">{{card['name']}}</strong>
+
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+<!-- The Stats Modal -->
+<div class="modal fade" id="modalStatsDeck" (click)="resetStats()">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Deck Stats</h4>
+          <button type="button" class="close" data-dismiss="modal" (click)="resetStats()">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+            <div class="row d-flex justify-content-center">
+              <div class="col-10">
+                <app-statistics></app-statistics>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer d-flex justify-content-around">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetStats()">Close</button>
+  
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+
+  <!-- EXPORT MODAL -->
+<div class="modal fade" id="modalExport" tabindex="-1" role="dialog" aria-labelledby="modalExport" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalExport">Export Deck</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form>
+          <div class="modal-body bg-white">
+            <div class="form-group">
+  
+              <select class="selectpicker" [(ngModel)]="exportFormat" [ngModelOptions]="{standalone: true}" (change)="changeFormat()">
+                <option value="JSON">JSON</option>
+                <option value="CSV">CSV</option>
+              </select>
+              <!-- <button class="btn btn-info" (click)="generateCSV()">Generate CSV</button> -->
+              <br>
+              <label for="fileName">File name</label>
+              <input type="text" class="form-control" id="fileName" aria-describedby="fileName" placeholder="Enter name"
+                title="Choose a name for your deck" [(ngModel)]="exportName" [ngModelOptions]="{standalone: true}">
+  
+            </div>
+  
+          </div>
+          <div class="modal-footer border-top-0 d-flex justify-content-center">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <!-- TO DO: ngStyle & ngClass to close the modal only if the save goes correct. show error if not -->
+            <a class="btn btn-success" [href]="exportURL"
+              [download]="exportName +'.'+exportFormat">Export</a>
+  
+            <!--           <button *ngIf = "_data.currentView != 'edit-deck'" type="submit" class="btn btn-success" (click)="saveDeck()" data-dismiss="modal">Save</button>
+            <button *ngIf = "_data.currentView == 'edit-deck'" type="submit" class="btn btn-success" (click)="updateDeck()" data-dismiss="modal">Update</button> -->
+  
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

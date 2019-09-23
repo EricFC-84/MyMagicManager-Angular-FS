@@ -1,0 +1,128 @@
+<div class="container">
+  <div class="row ">
+    <div class="col-12 d-flex justify-content-center">
+
+      <div class="register p-4">
+        <div class="register-header">
+          <h3 class="title">Register</h3>
+
+        </div>
+        <div class="register-body">
+          <form>
+            <div class="form-group">
+              <label for="registerName">Username
+              <sup class="text-muted" title="- Can only contains alphanumeric characters, hyphen, underscore and dot.
+- Underscore and dot can't be at the end or start of a username.
+- Underscore and dot can't be next to each other.
+- Underscore or dot can't be used multiple times in a row.
+- Number of characters must be between 8 to 20."> ? </sup></label>
+              <input type="text" class="form-control" id="registerName" aria-describedby="nameHelp"
+                [(ngModel)]="nameRegister" [ngModelOptions]="{standalone: true}" autocomplete="name" required
+                #registerName="ngModel"
+                [ngClass]="{'validated':validInputs['name'], 'invalid': (validating && !validInputs['email']) }">
+            </div>
+            <div *ngIf="validating && validInputs['name'] == false" class="alert alert-danger error-msg">
+              Name is required
+            </div>
+            <div class="form-group">
+              <label for="registerEmail">Email</label>
+              <input type="email" class="form-control" id="registerEmail" aria-describedby="emailHelp"
+                [(ngModel)]="emailRegister" [ngModelOptions]="{standalone: true}" autocomplete="email" required
+                [ngClass]="{'validated':validInputs['email'], 'invalid': (validating && !validInputs['email']) || _user.registerError}">
+            </div>
+            <div *ngIf="(validating && validInputs['email'] == false)" class="alert alert-danger error-msg">
+              Email is required
+            </div>
+            <div class="form-group">
+              <label for="registerPassword">Password<sup class="text-muted" title="- Must contain one capital letter.
+- Must contain one number.
+- Must contain one special character"> ? </sup></label>
+              <input type="password" class="form-control" id="registerPassword" [(ngModel)]="passwordRegister"
+                [ngModelOptions]="{standalone: true}" autocomplete="foo" required
+                [ngClass]="{'validated':validInputs['password'], 'invalid': (validating && !validInputs['email']) }">
+            </div>
+            <div *ngIf="validating && validInputs['password'] == false" class="alert alert-danger error-msg">
+              Password doesn't follow the requirements:
+              <ul>
+                <li>Must contain one capital letter</li>
+                <li>Must contain one number</li>
+                <li>Must contain one special character</li>
+              </ul>
+            </div>
+
+            <div *ngIf="_user.registerError" class="alert alert-danger error-msg">
+              There is already a user registered with that email. <br>
+              Please choose a different one
+            </div>
+
+            <!--                         <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                            <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a> -->
+
+            <div class="row align-items-center d-flex my-2">
+              <div class="col-12 text-center"><button data-toggle="modal" data-target="#modalProfilePic"
+                  class="btn btn-secondary"><i class="far fa-user"></i><span *ngIf="!hasConfirmedPic"> Profile
+                    pic</span><span *ngIf="hasConfirmedPic"> Change pic</span></button></div>
+              <div class="col-12 text-center my-3" *ngIf="hasConfirmedPic">
+                <img [src]="profilePics[selectedPic-1]" style="width: 100px;">
+              </div>
+
+            </div>
+
+
+
+
+            <div class="text-center my-2">
+              <button type="submit" class="btn btn-danger w-50" (click)="register()">Continue</button>
+            </div>
+          </form>
+
+
+
+
+          <hr />
+          <div class="register-footer text-center">
+            <p>Already a member? <a [routerLink]="['/login']">Login here</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- The DELETE Modal -->
+<div class="modal fade" id="modalProfilePic">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Profile Pic</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p>Choose one profile pic</p>
+        <div class="container">
+          <div class="row" style="max-height: 55vh; overflow: auto;">
+
+            <img *ngFor="let pic of profilePics; let i = 'index'" [src]="pic"
+              class="col-4 col-sm-3 col-md-3 col-lg-2 p-2 profilePic" (click)="selectPic(i+1)"
+              [ngClass]="{'selected': (selectedPic == i+1)}">
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer d-flex justify-content-around">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="confirmedPic(i)">Continue</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+      </div>
+
+    </div>
+  </div>
+</div>

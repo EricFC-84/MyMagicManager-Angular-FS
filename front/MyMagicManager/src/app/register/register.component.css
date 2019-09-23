@@ -1,0 +1,47 @@
+.register{
+    padding: 0 16px;
+    width: 460px;
+    border: 1px solid;
+    background-color: white;
+}
+
+.register-body label{
+    font-weight: bold;
+}
+
+.title{
+    text-align: center;
+    font-weight: bold;
+    margin: 25px 0;
+}
+
+.profilePic{
+    /* filter: grayscale(100%) */
+    opacity: 0.5;
+}
+
+.selected {
+    /* border: 3px solid blue; */
+    /* filter: grayscale(0%); */
+    opacity: 1;
+}
+
+.error-msg{
+    margin-top: -1rem;
+    font-size: 0.8em;
+    padding: 10px;
+}
+
+.error-msg>ul{
+    margin: 0;
+}
+
+.validated{
+    border: 2px solid green;
+}.invalid{
+    border: 2px solid red;
+    color: #721c24;
+
+}
+
+

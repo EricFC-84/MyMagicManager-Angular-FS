@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-12 filter-section">
+    <div class="filters bg-dark p-5 text-center">
+
+      <div class="search-input">
+        <input type="text" class="bg-light" name="search-name" id="search-name" [(ngModel)]="queryName"
+          placeholder="Card Name">
+        <!-- <label for="search-name">Name</label> -->
+      </div>
+
+      <select class="selectpicker" id="set-list" title="Set" [(ngModel)]="querySet" multiple data-max-options="3"
+        data-selected-text-format="count">
+        <option *ngFor="let set of _data.sets; let i = 'index'" [ngValue]="set">{{_data.set_names[i]}}</option>
+      </select>
+
+      <select class="selectpicker" multiple title="Rarity" [(ngModel)]="queryRarity">
+        <option value="common" data-content="<span class='badge badge-dark'>&nbsp;</span> &nbsp;Common">Common
+        </option>
+        <option value="uncommon" data-content="<span class='badge badge-secondary'>&nbsp;</span> &nbsp;Uncommon">
+          Uncommon</option>
+        <option value="rare" data-content="<span class='badge badge-warning'>&nbsp;</span> &nbsp;Rare">Rare</option>
+        <option value="mythic" data-content="<span class='badge badge-danger'>&nbsp;</span> &nbsp;Mythic rare">
+          Mythic
+          rare</option>
+
+
+      </select>
+
+      <select class="selectpicker" multiple title="Color" [(ngModel)]="queryColor">
+        <option *ngFor="let color of _data.color_codes; let i = 'index'" [ngValue]="color">{{_data.color_names[i]}}
+        </option>
+      </select>
+
+
+      <select class="selectpicker" multiple title="Type" (change)="selectType()" [(ngModel)]="queryType">
+        <option *ngFor="let type of _data.types; let i = 'index'" [ngValue]="type">{{type}}</option>
+      </select>
+
+      <select class="selectpicker" id="creature-type" multiple title="Creature type" disabled
+        [(ngModel)]="queryCreatureType" data-live-search="true" data-size="8">
+        <option *ngFor="let type of _data.creature_types; let i = 'index'" [ngValue]="type">{{type}}</option>
+      </select>
+
+
+
+      <select class="selectpicker" multiple title="Converted Mana Cost" [(ngModel)]="queryCost" data-size="10">
+        <!-- <option *ngFor="let cost of _data.cards_costs; let i = 'index'" [ngValue]="cost">{{cost}}</option> -->
+        <option [ngValue]="0">0</option>
+        <option [ngValue]="1">1</option>
+        <option [ngValue]="2">2</option>
+        <option [ngValue]="3">3</option>
+        <option [ngValue]="4">4</option>
+        <option [ngValue]="5">5</option>
+        <option [ngValue]="6">6+</option>
+        <!--               <option [ngValue]="7">7</option>
+              <option [ngValue]="8">8</option>
+              <option [ngValue]="9">9+</option> -->
+      </select>
+
+
+      <!-- <select *ngIf="_user.isLogged" class="selectpicker" [(ngModel)]="queryFavourites">
+              <option [ngValue]="false">All </option>
+  
+              <option [ngValue]="true">Only favourites</option>
+  
+            </select> -->
+      <div class="col-12 mt-3">
+        <button *ngIf="_user.isLogged" class="btn favourites-button m-1" id="favourites"
+          (click)="queryFavourites = !queryFavourites" [ngClass]="{'favChecked': queryFavourites}">Only favourites
+          <i class="far fa-star ml-2 " [ngClass]="{'inFavourites': queryFavourites}" aria-hidden="true"></i>
+        </button>
+
+        <button class="btn exclusive-btn m-1" id="exclusive" (click)="exclusive = !exclusive"
+          [ngClass]="{'exclusive': exclusive}">Color Exclusive
+          <span aria-hidden="true"><img src="https://img.icons8.com/small/16/000000/query-inner-join.png"></span>
+        </button>
+
+
+      </div>
+    </div>
+
+
+    <div class="text-center my-2">
+
+      <button type="button" class="btn btn-primary w-25 m-2" (click)="filter()">Filter</button>
+      <button type="button" class="btn btn-danger w-25 m-2" (click)="clearFilters()">Clear filters</button>
+
+    </div>
+
+  </div>
+</div>
